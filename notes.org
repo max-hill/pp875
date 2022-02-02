@@ -1,0 +1,129 @@
+* Thompson et al, 2011
+
+[[https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018093][Link to the paper]] This paper is a benchmark study of multiple sequence alignment
+methods. Modern methods are pretty good, but face some challenges: (1) locally
+conserved regions are less well aligned, (2) motifs in natively disordered
+regions are often misaligned, and (3) the badly predicted or fragmentary protien
+sequences in many of today's databases lead to significant number of alignment
+errors. Novel approaches will be required to deal with the most difficult
+regions.
+
+** Introduction
+
+*** Definitions 
+
+MSA obviously.
+
+BAliBASE -- this is an alignment benchmark suite containing multiple sequence
+alignments organized into 9 reference sets representing specific MSA problems.
+[Q: what does alignment benchmark suit mean?] The different reference sets
+represent specific problems for MSA problems. These include (1) small numbers of
+sequences, (2) unequal phylogenetic distributions, (3) large N/C-terminal
+extensions or internal insertions, (4) repeats, inverted domains and
+transmembrane regions.
+
+Specific features are known as *specificity determining positions* (SPDs) that
+modulate a protien's function in a given context.
+
+The most popular alignment algorithms traditionally have been *progressive
+alignment procedures* which exploits the fact that progressive alignments are
+evolutionarily related. An MSA is built up gradually using a series of pairwise
+alignments, following the branching order in a phylogenetic tree. [Q: do we need
+a phylogenetic tree to do this?]
+
+A *global MSA algorithm* attempts to align the full length sequences one end to
+the other. Often we start with a global alignment and then focus on important
+regions. A *local algorithm* attempts to identify subsequences sharing high
+similarity. Then the unreliable or low-similarity regions are either excluded or
+differentiated (eg by the use of upper/lower case letters).
+
+Gold standard benchmarks indicate that no existing progressive algorithm is
+capable of providing accurate alignments for all test cases. As a result,
+iterative algorithms have been developed, e.g. Hidden Markov Models and Genetic
+Algorithms. These are good for highly conserved regions, but bad for distantly
+related sequences.
+
+Challenges: (1) Scalability is a big challenge because we can now make MSAs with
+hundreds of organisms; (2) small number of model organisms in public databases;
+(3) protein families represented in today's databases are complicated, and (4)
+new sequences are mostly predicted by automatic methods and thus contain a large
+number of sequence errors [Q: this has something to do about gene sequence
+prediction? See bottom of p2]; (5) we now have sequences with billions of bases
+produced from read lengths as short as 35-45 nucleotides, resulting in
+fragmentary protein sequences. In short, the data is big and noisy.
+
+*** Purpose of this paper
+
+The purpose is to apply a new protein sequence alignment benchmark designed to
+give a comprehensive account of the performance of today's most popular MSA
+programs. This was motivated by two observations: (1) most of the existing MSA
+benchmarks have focused on the patterns conserved in hte majority of the
+sequences and not enough attention has been paid to the less-frequent patterns,
+or SDPs which might indicate subfamily- or context-specific functions; (2)
+current MSA programs for protein sequences generally model globular domain
+structure and evolution. [Q: what is "globular domain structure"?] But many
+protiens in eukaryotes are unstructured, or contain large unstructured regions
+[Q: what does sctructured mean in this context?]
+
+Specifically, the benchmark represents 218 large and complex protein families
+and has been incorporated into the BAliBASE benchmark suite. Basically, they
+include a new test set, Reference 10, which they add to the pre-existing 9
+reference sets in BAliBASE. The new reference set focuses on subamily specific
+features, motifs in disordered regions, and the effect of fragmentary or
+erroneous sequences on MSA quality. [Q: what does reference set refer to in this
+context?]
+
+This is a comparative study to evaulate the most widely-used alignment methods.
+
+[RANDOM QUESTION: Strong selection for gene 1 in the past should speed up
+coalescent rate for unrelated gene 2, no? That is, it should have an effect
+similar to reducing the effective population size.]
+
+
+
+** Results
+
+*** Overall Alignment Quality
+
+Applied 8 alignment programs to each of 218 reference alignments in the
+benchmark, resulting in 1744 automatically-constructed MSAs.
+
+Overall quality was measured with Column Score (CS). [what is this? ask methods
+team]
+
+Probcons, TCoffee and Mafft did the best. (Scores about 80%). Mafft took only an
+hours but the other ones took like 3 days. Kalign took only 3 minutes but had
+some loss of accuracy (74%).
+
+Methods that did not combine both local and global approach performed worse.
+
+*** Effect of sequence discrepancies ons alignment quality
+
+Methods did well. But I don't understand what is meant by sequence discrepencies. 
+
+*Discrepencies* are unexpected or discordant extensions, inserions or deletions,
+as shown in Figure 2.
+
+*** MSA program evaluation: alignment of locally conserved motifs
+
+Want to see if the MSAs can identify context-specific or locally conserved
+motifs.
+
+Various features of blocks in the reference alingments were measured, such as
+length of hte block, sequence similarity, frequency the bock is show in the
+alignment, and what percent of the block is found in a disordered region.
+Alignment quality for each block was measured with a scoring system called BCS.
+Programs did not respond in the same way to different block features. For
+example, Muscle and TCoffee were affected by the frequency of the blocks.
+Probcons and Muscle were less sensitive to similarity of the blocks.
+
+Blocks with significant number of residues in "natively disordered segments" had
+low scores with every program. [what does that mean?]
+
+What is a disordered segment?
+
+*** Improving local alignment quality by combining methods
+
+They construct a theoretical top score by choosing for each block the top score
+achieved by any of the inference methods considered.
+
