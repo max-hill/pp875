@@ -127,3 +127,28 @@ What is a disordered segment?
 They construct a theoretical top score by choosing for each block the top score
 achieved by any of the inference methods considered.
 
+* Di Franco et al. 2019
+[[https:bmcecolevol.biomedcentral.com/track/pdf/10.1186/s12862-019-1350-2.pdf][Link to the paper]]. 
+** Issue
+Molecular evolutionary analysis begins with the construction of multiple
+sequence alignments. It is therefore important to limit the propagation of
+alignment errors. Potential errors are multiple: alignment errors, sequences,
+assembly errors. and annotation errors.
+** Significance
+** Approach
+The authors develop an HMM called HmmCleaner, which detects and eliminates
+errors in MSAs. They perform two analyses:
+
+  1. They first assess the performance of HmmCleaner using ~700 amino-acid MSAs
+     in which primary (i.e. non-alignment) errors were artificially introduced.
+
+  2. Next they compared two "segment-filtering methods", HmmCleaner and PREQUAL,
+     with block-filtering software (BMGE and TrimAI). Specifically, they
+     compared the impact on evolutionary analysis using vertebrate data.
+** Results
+In the first analysis, HmmCleaner exhibited >95% sensitivity to primary sequence
+errors. In the second analysis, they find that segment-filtering methods improve
+evolutionary inference better than block-filtering, especially with respect to
+improving branch length inferences and reducing false positive rate during
+detection of positive selection.
+** Conclusions
