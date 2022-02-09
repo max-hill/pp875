@@ -132,8 +132,9 @@ achieved by any of the inference methods considered.
 ** Issue
 Molecular evolutionary analysis begins with the construction of multiple
 sequence alignments. It is therefore important to limit the propagation of
-alignment errors. Potential errors are multiple: alignment errors, sequences,
-assembly errors. and annotation errors.
+alignment errors. Potential errors are multiple: alignment errors, as well as
+the more ominous "primary errors" which include sequencing errors, assembly
+errors. and annotation errors.
 ** Significance
 ** Approach
 The authors develop an HMM called HmmCleaner, which detects and eliminates
@@ -145,10 +146,54 @@ errors in MSAs. They perform two analyses:
   2. Next they compared two "segment-filtering methods", HmmCleaner and PREQUAL,
      with block-filtering software (BMGE and TrimAI). Specifically, they
      compared the impact on evolutionary analysis using vertebrate data.
+** Methods
+- HmmCleaner has four steps: 
+  1. create a profile pHMM based on the MSA
+  2. estimate the probability that the pHMM generates each amino acid of a given
+     sequence of the MSA (the assumption here is that a primary sequence error
+     should have very low probability)
+  3. calculate a cumulative similarity score for each sequence
+  4. segments with score zero or lower are "low similarity segments"
+- Dataset creation:
+  1. MSAs of protein-coding genes from prokaryotes. Purpose: to study
+     performance of HMMCleaner.
+  2. Datasets assembled from animal sequences. Purpose: to study impact on
+     evolutionary inferences.
+- Simulator:
+  - Input: a protein-coding alignment (MSA)
+  - Randomly introduces primary sequence errors (e.g. scrambling a segment or
+    inserting a scrambled segment, frameshift (i.e. the insertion/deletion of a
+    number of sites not divisible by three))
+  - Translates all sequences to protiens and realigns them with MAFFT
+  - Output: an MSA with errors
+  - Then run HmmCleaner on the output MSA. Regions with low similarity scores
+    are compared to the locations of the simulated errors to obtain type I and
+    type II error probabilities.
+- Parameter Optimization
+  - HMMCleaner has 4 scoring parameters. HMMCleaner was run on the prokaryotic
+    datasets using thousands of combinations of parameters in order to find the
+    best values to use.
+- Characterization of HmmCleaner performance:
+  - Prokaryotic Data
+  - HmmCleaner was compared to 4 other filtering methods
+- Effect of HmmCleaner on evolutionary inferences
+  - Animal MSAs
+  - Selection: For each simulation, we test for positive simulation using (1) the original
+    MSA (2) the MSA cleaned by the programs, (3) erroneous MSA, and (4) the
+    erroneous filtered MSA.
+  - Phylogenies: Tested 11 different filtering setups, then used RAxML on each MSA
 ** Results
 In the first analysis, HmmCleaner exhibited >95% sensitivity to primary sequence
-errors. In the second analysis, they find that segment-filtering methods improve
+errors. HmmmCleaner targets low-similarity segments for removal, rather than whole blocks.
+
+In the second analysis, they find that segment-filtering methods improve
 evolutionary inference better than block-filtering, especially with respect to
 improving branch length inferences and reducing false positive rate during
 detection of positive selection.
 ** Conclusions
+- Reccommend the use of segment-filtering methods for eukaryotic genomic data.
+- Primary sequence errors more detrimental than alignment errors (didn't understand why)
+- 
+** Questions
+Does anyone really know how illumina works? Don't they use proprietary methods?
+Like... doesn't that preclude replication?
