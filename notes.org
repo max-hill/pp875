@@ -197,3 +197,99 @@ detection of positive selection.
 ** Questions
 Does anyone really know how illumina works? Don't they use proprietary methods?
 Like... doesn't that preclude replication?
+* Ballesteros & Hormiga 2016
+[[https://doi.org/10.1093/molbev/msw069][Link to paper]] This paper introduces a phylogenetic orthology method that does
+not depend on root placement and does not require explicit assignment of groups.
+This method is applied to a small insects dataset. Also apply to RNAseq data
+from spiders--to identify and document stable orthologs.
+
+** Issue
+A fundamental assumption in phylogenetics is that the loci used to infer
+evolutionary relationships are orthologs. Most methods of orthology detection
+evaluate orthology using some measurement of similarity. Most methods don't
+perform better than BLAST. In addition, orthology detection usually requires
+computationally intensive pairwaise comparisons (for distance-based methods) or
+tree inference (for phylogeny based methods).
+
+Tree-based orthology detection methods are increasingly popular. But inferred
+orthologies may depend on the root of the tree.
+
+There are not enough stable orthology hypotheses, especially for invertabrates.
+
+
+RNA sequencing (aka "transcriptomics") is increasingly used for phylogenetics.
+But while these efforts usually involve some form of orthology and homology
+assessment, but since the main goal is to recover the species tree, the
+orthology detection results are generally treated as byproducts and are not
+saved for future reference.
+
+** Definitions
+"Tree-based orthology detection methods" are methods that use the phylogeny of
+gene families to infer events of duplication-speciation of the gene copies,
+
+"Stable orthology hypotheses" = a database of identified "ultraconserved
+elements" (UCEs) which can be individually accessed and further documented.
+
+** Significance
+Not using orthologs can lead to phylogenetic conflict.
+** Approach
+Introduce UPhO (unrooted phylogenetic orthology), an orthology assessment method
+which does not depend on the root in the input gene family trees. Then
+ - Test UPhO on a trivial example of vertebrate hemoglobins.
+ - Using a small insect dataset, compare the use of UPhO with other methods when
+   used in a phylogenomic pipeline.
+ - Test UPhO on transcriptomic data using a dataset of 27 spider species. The
+   goal was to identify orthologs at "specific hierarchical levels." The spider
+   dataset was evaluated under a variety of homology (clustering) methods.
+
+** Methods
+UPhO is an orthology assessment tool that is used AFTER homology detection step
+AND construction of gene trees.
+** Results
+A gene family tree is a green trees whose tips reside in the leaves of the
+species tree. Not all leaves of the species tree contain tips of the gene tree;
+and some leaves may have more.
+
+The method UPhO classifies splits in gene trees by comparing the number of leafs of
+the gene tree with the number of species tree leaves that it is contained in. If
+these numbers are the same, then the split is thought to be orthologous.
+Otherwise it is a "paralogous split" (i.e. assumed to arise from a duplication).
+If the tips of the gene tree are all contained in a single leaf of the species
+tree, then the split is called "in-paralogous".
+
+*Vertebrate Hemoglobins:* didn't really understand this.
+
+*Insects Proteomes:* A clustering algorithm identified 2538 clusters (i.e.
+potential orthologs) from 1906 alignments. The results were input to UPhO and
+PTP (some other method: PhyloTreePruner) and were compared with results from a
+dataset called OMA.
+
+UPhO consistently discovered more orthogroups than PTP and OMA.
+
+Astral consistently recovered the species phylogeny regardless of orthology
+assessment. [This does not surprise me given our consistency results in the
+DLCoal project.]
+
+*Spiders:* BLAST produced 12,000 clusters with at least 5 species. When
+accepting in-paralogs, they discovered 3x as many orthologs as PTP. SC datasets
+showed heterogenous and conflicted phylogenetic signals. See Figure 6 for a nice
+picture of the resulting tree.
+
+** Conclusions
+** Questions
+What exactly does "tree pruning" mean? 
+
+What is ribosomal DNA? 
+
+"have a restricted set of molecular markers available for phylogenetic
+inference" -- what does this mean? Not much DNA?
+
+What does BLAST do? BLAST finds regions of similarity between biological
+sequences. It compares sequences to sequence databases and calculates statistica
+significance.
+
+What is ancestor-descendant polarity?
+
+What is proteome? All the proteins in a cell
+
+What does it mean for a cluster to be composed of "single copy" (SC) genes?
