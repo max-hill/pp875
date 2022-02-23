@@ -348,3 +348,56 @@ nature of Bayesian model selection when all models are misspecified.
 This paper considered the asymptotic behavior of the Bayesian method as data
 size goes to infinity, but in the cases where there are model selection
 problems. "Equally right" and "equally wrong" cases were considered.
+
+The authors categorize three different types of asymptotic behavior:
+
+- Type-1: ("sensible") -- the posterior probability converges to a sensible
+  value, such as 1/2. Unfortunately, this occurs only when the two models are
+  identical or overlapping.
+- Type-2: ("volatile") -- the posterior distribution fluctates among datasets
+  like a random number, so that some models may have support. This occurs when
+  models are equally right or equally wrong but "indistinct". Less of a problem,
+  since this occurs only when models are essentially the same interpretation of
+  the data. For example, if the truth is a star tree and the posterior gives
+  strong support to a random one of three binary trees, all of which have the
+  same, very short internal branch length (and hence should be suported as
+  evidence of polytomy).
+- Type-3: ("polarize") -- the posterior is approximately zero in half the
+  datasets and approximately 1 in the other half. This occurs when two models
+  are equally wrong and distinct. Most relevant to practical application,
+  because all models are wrong. When one model is slightly less wrong, it will
+  win with infinite data, but Bayesian inference will be overconfident and
+  support the more wrong model with high posterior too often.
+
+Something about "posterior predictive distribution".
+
+Extreme sensitivity fo the assumed model is undesirable. There are two heuristic
+approaches to remedy the high posterior model probabilities in the context of
+phylogenies:
+
+1. Assing nonzero probabilities to multifurcating trees (e.g. star trees) in the
+   prior.
+2. Let internal branch length in the binary trees become increasingly smaller in
+   the prior when the data size increases.
+
+**** Non-Bayesian Methods
+Cox's likelihood-ratio test--which conducts multiple tests with each model used
+as the null--can be used to compare nonnested models. Not widely used in
+phylogentics for computational reasons (too many trees).
+
+The bootstrap support is the most commonly used method for attaching a measure
+of confidence in the maximum-likelihood tree. For this, sites (alignment
+columns) are sampled to generate N bootstrap pseudodatasets and then we
+calculate the bootstrap support value for a clade (a node on the tree) to be the
+the proportion of times (out of N) in which that node is inferred in the ML
+tree. A straightforward interpretation of the bootstrap support values for trees
+remains elusive.
+
+*** My questions:
+I would like to better understand this sentence:
+
+"This application of bootstrap for model comparison appears to have important
+differences from the conventional bootstrap for calculating the standard errors
+and confidence intervals for a parameter estimate (40); a straightforward inter-
+pretation of the bootstrap support values for trees remains elusive (31,
+41–43)."
