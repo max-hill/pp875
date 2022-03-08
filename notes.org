@@ -484,9 +484,4 @@ tree of life.
 
 Need to understand better when these two types of methods agree or disagree.
 
-
-
-hell
-
-hello world
-j
+* Hello world
