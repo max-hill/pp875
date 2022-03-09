@@ -484,4 +484,83 @@ tree of life.
 
 Need to understand better when these two types of methods agree or disagree.
 
-* Hello world
+* Salichos 2014
+[[https://watermark.silverchair.com/msu061.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAugwggLkBgkqhkiG9w0BBwagggLVMIIC0QIBADCCAsoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMaSQCCt-u6w5NHrIuAgEQgIICmzmk2Pa03FzEnYvAEzABPjc6OzHC0k1jBw3JqR9Lk0unBwEULwCM1sjvL98HerVAlG-T510znfnyxuGohidztfiE-OUtCezDMynnsXa92O6XIPkYYRogHr8EN59lkew-9fDt0b4P2maCTHsmqWlxy4uP3LLLOIYsHqGQFKXlakMFyIjSQqEr9i1QUZ6vcjSuuv2StdU9Rli_w4fq_14PN_k_F4zMmh1cNBDPyr3q4EmjYyLClXKNMV3VldFZhTTEVgTD2CXrd5gaxHyFlXIJBaPCKaLKE3IytjbmCIbtkx3C2QOj6U0c1-bWshhJgkHTtR0eN79iAqKN_amxpzMV81Cg0GAI9-Fu70w2_lmdprmngyCnsgC6RgeZN3vc0NCk1pB43QfJipqhg_ewDz_tSOZwzg4XOGvoO-CCzKyd1hnTwtmxB65jQIFIp6TvOhkzZ9eaG5MtWcgBQPLa46z8ml0nmEUF-cpNs7kYwtIWUdqGa_V82cevJpIoWLxT6EUjMHavReGt4_hkOeR3rbNxwUXO-SFFusmmu_6AX4cUoh3bpvKCYHcxxi4UlWCr5LjvpUm9octIk8uj_bLAPMjrkIUwilbJwhLIPDePrWXY3YpN_yQUZcMEHIzcxsT2Po86SYGLb_GiE4Ysthbb5jf4F2G_ZChMAn76c4uQzElV4Czw6oKvCv3A-Oeltz52XfoUL7v7RzJRs6U3Yu_RZ7aL7OBC18oRgq-xEY9pffzbF0xz8dvWB3qEqN3JopDJlmfIOPPQorFuy7-UIbq8su1lf7nvUQ9PSfhfKYJEHTLMBlsQrB-4bseJN_LjYll_hyZBXUs4I0OtNFENja8Pdf7TIZ5qtbmNIhTxSnPBkJ7QDXS0Qpk4qfWnkXM7gpQ][Link to paper]]
+Title: Novel Information Theory based measures for quantifying incongruence
+among phylogenetic trees.
+
+** Defintions
+IC internode certainty (an internode is an edge). IC is a function of (1) the
+frequency of bipartition defined by the edge in a given set of trees and (2) the
+frequency of conflicting bipartitions in the same tree set.
+
+ICA: IC all. Similar. ("conjunction" vs "jointly")
+
+TC: tree certaintly and TCA tree certainty all. These are calculated by summing
+the values of IC or ICA over all internodes of a phylogeny.
+
+Note: IC, ICA, TC, TCA can be calculated from many different types of data that
+contain nontrivial bipartitions. For example bootstrap replicate trees.
+
+IC and ICA measure the incongruence of a particular edge. TC and TCA measure
+global incongruence between trees in the set.
+
+All these quantities are implemented in RAxML.
+
+
+IC is based on the two most prevalent conflicting bipartitions.
+ICA is based on all most prevalent conflicting bipartitions. 
+
+In a phylogenetic tree, there is a 1-1 correspondence between edges and
+bipartitions of leaves:
+edges <---> bipartitions of the leaves
+
+
+Partitions A=W|X and B=Y|Z are *compatible* iff at least one of hte
+intersections of the following four intersections of bipartition pairs is empty:
+WX, WZ, XY, XZ. Otherwise they are incongruent. See figure 1.
+
+*Shannon's entropy:* a measure of uncertainty in a random variable, defined as
+#+BEGIN_SRC LaTeX
+  For an r.v. $X$ with potential outcomes $X_1,\ldots,X_n$, the entropy of $X$ is
+  defined as
+  \begin{equation*}
+  H(X)= - \sum_{n=1}^n P(X_n) \log P(X_n)
+  \end{equation*}
+#+END_SRC
+
+For example, a fair coin has entropy 1. A lotto ticket (with outcomes win/lose
+the lottery, with probability 1/300000000) has entropy 1/10000000.
+Interpretation: there is less uncertainty about outcome of the lotto ticket than
+about the coin flip.
+
+Applying this to phylogenetics: Let $X_1,X_2$ be the frequency of support for
+the two most prevalent conflicting bipartitions. Define the random variable $X$
+by $X=X_i$ with probability $X_i/(X_1+X_2)$. Then *internode uncertainty* is
+defined as $H(X)$, and we define IC as $IC= 1 - (internode uncertainty)$. [Note
+there is a typo: they say log(n) but it should be 1.] In some cases need to flip
+the sign.
+
+IC values close to one indicate absence of conflict whereas IC values close to 0
+indicate equal support for both bipartitions
+
+
+Define ICA = log(n) - H(Y)
+
+where $Y$ is a random variable defined by $Y=X_i$ with propbability
+$X_i/(X_1+\ldots+X_n$, where $X_1,\ldots,X_n$ are the conflicting bipartitions
+with support above some threshold (e.g. 5%).
+
+
+** Issue
+Issue: gene trees are often not topologically congruent either with each other
+or with species phylogeny. Therefore we want to measure and quantify
+incongruence that is reasonably general, not tied to particular optimality
+criterion of clade support measure.
+
+Consensus methods are one way to deal with incongruent gene trees. For example
+majority-rule consensus. Consensus trees do not give information about the
+distribution of conflicting bipartitions, which may cause substantial loss of
+information (e.g. is the second most supported bipartition supported by 5% of
+trees or 49% of trees?).
+
