@@ -564,3 +564,49 @@ distribution of conflicting bipartitions, which may cause substantial loss of
 information (e.g. is the second most supported bipartition supported by 5% of
 trees or 49% of trees?).
 
+* Naser-Khdour et al 2020
+Title: Assessing Confidence in Root Placement on Phylogenies: An Empirical Study
+Using Non-Reversible Models for Mammals
+[[https://doi.org/10.1101/2020.07.31.230144][Link to paper]]
+
+Methods/Discussion
+
+Issue: time reversible markov models lack the ability to infer the root
+placement on an estimated phylogeny. This paper is about nonreversible models to
+root phylogenies. It introduces a new bootstrap measure, the "rootstrap" which
+gives information on the statistical support for any given root position.
+
+
+** Notes
+- Introduced rootstrap - a measure of support for root placement which does not
+  depend on rooting method
+- Applied rootstrap to empirical amino and nucleotide datasets inferred using
+  IQ-TREE with nonreversible models
+- Rootstrap is interpreted differently depending on whether ML or Bayesian setting
+- RS is not a measure of accuracy of root placement; a higher rootstrap support
+  indicates less variance among sites in the signal for theplacement of the
+  root.
+- Rootstrap gives information about the robustness of root inference with
+  regards to resampling the data
+- Introduced two other methods: rBED (root branch-length error distance) and
+  rSED (root split error distance). These require the true position of the root
+  to be known (or assumed)
+- Assessed the utility of nonreversible models to root phylogenetic trees in an
+  ML framework
+- mammal dataset, since roots are thought to be known with some confidence for
+  mammals
+- specifically focused on chiroptera (bats) and cetartiodactyla (family including
+  hippos, deer, dolphins, and more). In neither case could a hypothesis be
+  rejected (with amino dataset), though rootstrap tended to favor one or the
+  other. Opposite for nucleotide dataset.
+- nonreversible amino models are more useful for inferring root position than
+  nonreversible DNA models
+- BIC scores indicate reversible model is better for nucleotide dataset,
+  possibly due to limitations of how they inferred the NR-DNA model
+- Amino acid nonreversible is surprisingly accurate for inferring root placement
+  even without additional information -- identified all the roots correctly and
+  with high rootstrap support. Even with small datasets, such as 50 loci.
+- Our results show that the root placement was inferred correctly with high
+  rootstrap support in 12 out of the 13 data sets in which the nonreversible
+  model was preferable.
+- Not a silver bullet
