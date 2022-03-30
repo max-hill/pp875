@@ -610,3 +610,86 @@ gives information on the statistical support for any given root position.
   rootstrap support in 12 out of the 13 data sets in which the nonreversible
   model was preferable.
 - Not a silver bullet
+* Reddy Et al 2017
+Title: Why Do Phylogenomic Data Sets Yield Conflicting Trees? Data Type
+Influences the Avian Tree of Life more than Taxon Sampling
+
+[[https://academic.oup.com/sysbio/article/66/5/857/3091102?login=true][Link to Paper]]
+Intro/methods
+
+** Issue
+Large genomic datasets can result in conflicting estimates of phylogeny. Is the
+primary reason for incongruence the number of sites, the number of taxa, or
+the data type?
+
+Specifically, two recent studies came to strongly-supported but conflicting
+conclusions: (1) one study (Jarvis) was based on 42Mbp of data (>12,000 loci)
+from 48 complete avian genomes, (2) the other (Prum) was based on only 0.4 Mbp
+of data (259 loci) from 259 loci obtained by sequence capture and sampled from 198 bird
+species.
+
+
+TL;DR The most important variable was data type -- likely arising from
+violations of phylogenetic models.
+
+** Significance
+Question: are the evolutionary models implemented in available phylogenetic
+software sufficient to resolve difficult phylogenetic trees accurately using
+large sequence data sets?
+** Approach
+we use the early divergences in Neoaves, the largest clade of extant birds, as a
+“model system” to understand the basis for incongruence among phylogenomic
+trees. Neoaves underwent rapid radiation, making tree reconstruction
+challenging.
+
+THe paper considers four competing hypotheses to explain the discrepancy between
+the two studies.
+H1: Insufficient signal
+H2: Hard Polytomy
+H3: Taxon sampling - more taxa in Prum explains the difference
+H4: Data-type effects - Prum considers primarily coding exons; Jarvis considers
+a mixture of exons, introns, and ultraconserved elements (UCEs)
+
+H1 is tested by considering a novel data matrix and comparing its congruence
+with the Jarvis and Prum reconstructed trees.
+H2: this is tricky because hard polytomies sometimes give rise to data with high
+support for non-polytomic trees. Test H2 by looking at subsets of the data: if
+there is high variation in the trees inferred from the subsets, that's
+indicative of a polytomy
+H3: tested using subsampling
+H4: tested by looking if tree types cluster with data type
+
+Evaluated a novel data matrix ("early bird II (EB2)") comprised primarily of
+non-coding data similar to one of the trees in Jarvis, but using taxon sampling
+similar to Prum.
+
+Also performed taxon subsampling experiments on EB2.
+** Methods
+*** Data
+EB2 consists of 54 loci, added 66 species and four loci that were not looked at
+before. Novel pipeline using HMMs. Four data matrices produced
+1. ALL: (258 taxa, ~140,000 bp)
+2. EB2: (235 taxa, ~140,000 bp)
+3. KIM: (120, 120k)
+4. JAR: (48, 90k)
+
+Aligned with MUSCLE
+*** Phylogenetic analysis
+RAxML and IQ-TREE for ML analysis of concatenated data
+
+GTR+I+Gamma
+
+ExaBayes
+
+Squangle -- quartets
+
+** Results
+** Conclusions
+
+** Questions
+"This pipeline (available
+from https://github.com/aakanksha12/Extract_seq)
+allowed us to extract sequences from genome assemblies
+regardless of the quality of the annotation for those
+genome sequences"
+What does this mean? I don't understand annotation.
