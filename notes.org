@@ -747,3 +747,75 @@ little impact on species-tree accuracy.
 The part of the paper that always gets quoted in other papers:
 "The effect of unrecognized intralocus recombination is minor and does not
 represent a major source of error for species-tree analyses"
+
+* Du et al (2019)
+Title: The effect of alignment uncertainty, substition models and priors in
+building and dating the mammal tree of life
+[[https://bmcecolevol.biomedcentral.com/articles/10.1186/s12862-019-1534-9][Link to Paper]]
+
+Methods/results
+
+Independent variables: alignment uncertainty, substition models, fossil priors
+Dependent variables: estimation of gene trees, species trees, and divergence
+times.
+
+
+* Methods
+
+Utilizes a mammalian dataset of 90 species and ~5000 coding taxa. Final dataset
+has four sets of alignments, constructed by applying consecutive data-cleaning
+method:
+  - BT: before trimming 
+  - AT: after trimming
+  - FP: filtered by pipeline
+  - FM: filtered by comparing ML gene trees for each locus with concatenation
+    tree
+
+Protein sequences of the loci were aligned with Mafft v6. 
+
+** Alignments
+- Aligned DNA sequences were trimmed by the program trimA1
+- Filtering pipeline from Irisarri was applied to trimmed sequences to identify
+  sequences within each alignment that involve misalignments or misassemblies.
+- ML gene trees with unusually long branch lengths compared to the concatenation
+  tree were removed.
+
+** Gene Tree Estimation
+ML gene trees built with each of the alignments using RAxML. 
+   - The AT, FP, and FM gene trees were compared with the BT gene trees using
+     normalized RF distance
+   - Did something with bootstraps I didn't understand, but ended up showing no
+     difference between the four alignments
+   - To evaluate the impact of substitution models, ML and bootstrap gene trees
+     were built using JC, K80, and GTR models for the FM alignments.
+
+** Species Tree Reconstruction
+Species tree estimated from bootstrap gene trees using each of the four
+alignments. Estimation methods included
+  - ASTRAL
+  - NJst
+  - STAR
+These trees were summarized by a majority rule consensus tree, respectively.
+A "coalescent bootstrap likelihood ratio test" (cbLRT) was introduced to compare
+the results.
+
+Results: trimming is a major factor of alignment uncertainty. But filtering
+additional long branches is not.
+
+** Divergence Time Analysis
+Divergence times were fitted to the ASTRAL, STAR, and concatenation trees using
+MCMCTREE, with a random selection of 200 genes.
+
+To evaluate the effect of alignment uncertainty on divergence time estimation,
+divergence times from AT, FP, and FM alignments were compared with those of BT
+alignments.
+
+Effect of fossil prior on divergence times was tested by comparing with...
+
+* Results
+- No significant difference among divergence dates estimated with different
+  substitution methods.
+- Trimming results in more recent estimate of divergence times
+- Gene tree discordance < concatenation tree discordance between 4 alignments
+- Choice of substitution model has little impact on coalescent-based tree
+  estimation, but some impact on concatenation-based methods.
