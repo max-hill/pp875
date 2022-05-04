@@ -551,7 +551,6 @@ where $Y$ is a random variable defined by $Y=X_i$ with propbability
 $X_i/(X_1+\ldots+X_n$, where $X_1,\ldots,X_n$ are the conflicting bipartitions
 with support above some threshold (e.g. 5%).
 
-
 ** Issue
 Issue: gene trees are often not topologically congruent either with each other
 or with species phylogeny. Therefore we want to measure and quantify
@@ -576,9 +575,8 @@ placement on an estimated phylogeny. This paper is about nonreversible models to
 root phylogenies. It introduces a new bootstrap measure, the "rootstrap" which
 gives information on the statistical support for any given root position.
 
-
 ** Notes
-** METHODS
+** Methods
 - Introduced rootstrap - a measure of support for root placement which does not
   depend on rooting method
 - Applied rootstrap to empirical amino and nucleotide datasets inferred using
@@ -677,15 +675,9 @@ before. Novel pipeline using HMMs. Four data matrices produced
 Aligned with MUSCLE
 *** Phylogenetic analysis
 RAxML and IQ-TREE for ML analysis of concatenated data
-
-GTR+I+Gamma
-
-ExaBayes
-
-Squangle -- quartets
-
-** Results
-** Conclusions
+  - GTR+I+Gamma
+  - ExaBayes
+  - Squangle -- quartets
 
 ** Questions
 "This pipeline (available
@@ -760,17 +752,16 @@ Dependent variables: estimation of gene trees, species trees, and divergence
 times.
 
 ** Methods
+Utilizes a mammalian dataset of 90 species and ~5000 coding taxa. Final dataset
+has four sets of alignments, constructed by applying consecutive data-cleaning
+method:
+  - BT: before trimming 
+  - AT: after trimming
+  - FP: filtered by pipeline
+  - FM: filtered by comparing ML gene trees for each locus with concatenation
+        tree
 
- Utilizes a mammalian dataset of 90 species and ~5000 coding taxa. Final dataset
- has four sets of alignments, constructed by applying consecutive data-cleaning
- method:
-   - BT: before trimming 
-   - AT: after trimming
-   - FP: filtered by pipeline
-   - FM: filtered by comparing ML gene trees for each locus with concatenation
-     tree
-
- Protein sequences of the loci were aligned with Mafft v6. 
+Protein sequences of the loci were aligned with Mafft v6. 
 
 *** Alignments
  - Aligned DNA sequences were trimmed by the program trimA1
@@ -825,16 +816,13 @@ Empirical Phylogenomic Data Sets
 [[https://academic.oup.com/mbe/article/35/2/486/4644721?login=true][Link to paper]]
 
 My sections: Intro/methods
+** Introduction
+ How good are ML methods on big genomic datasets?
 
-* Introduction
-How good are ML methods on big genomic datasets?
+ This paper tests RAxML, PhyML, IQ-Tree, and FastTree on big empirical datasets.
 
-This paper tests RAxML, PhyML, IQ-Tree, and FastTree on big empirical datasets.
+ Here, big means up to 200 taxa and thousands of genes.
 
-Here, big means up to 200 taxa and thousands of genes.
+** Results: 
+   IQtree did best for concatenation
 
-
-* results: 
-IQtree did best for concatenation
-
-* Materials and Methods
